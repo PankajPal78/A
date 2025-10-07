@@ -1,0 +1,202 @@
+{
+  "info": {
+    "name": "RAG Document Q&A System",
+    "description": "Complete API collection for testing the RAG Document Q&A System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "document_id",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/health",
+          "host": ["{{base_url}}"],
+          "path": ["api", "health"]
+        },
+        "description": "Check if the API is healthy and running"
+      },
+      "response": []
+    },
+    {
+      "name": "Upload Document",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": [],
+              "description": "Select a PDF or TXT file to upload"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/documents",
+          "host": ["{{base_url}}"],
+          "path": ["api", "documents"]
+        },
+        "description": "Upload a document (PDF or TXT) for processing and indexing"
+      },
+      "response": []
+    },
+    {
+      "name": "List All Documents",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/documents",
+          "host": ["{{base_url}}"],
+          "path": ["api", "documents"]
+        },
+        "description": "Retrieve a list of all uploaded documents"
+      },
+      "response": []
+    },
+    {
+      "name": "List Documents by Status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/documents?status=indexed&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "documents"],
+          "query": [
+            {
+              "key": "status",
+              "value": "indexed",
+              "description": "Filter by status: uploaded, processing, indexed, failed"
+            },
+            {
+              "key": "limit",
+              "value": "10",
+              "description": "Limit number of results"
+            }
+          ]
+        },
+        "description": "Retrieve documents filtered by status"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Document by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/documents/{{document_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "documents", "{{document_id}}"]
+        },
+        "description": "Get details of a specific document by ID"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Document",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/documents/{{document_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "documents", "{{document_id}}"]
+        },
+        "description": "Delete a document and its embeddings from the system"
+      },
+      "response": []
+    },
+    {
+      "name": "Query All Documents",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"question\": \"What is the main topic of the documents?\",\n  \"top_k\": 5\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/query",
+          "host": ["{{base_url}}"],
+          "path": ["api", "query"]
+        },
+        "description": "Ask a question about all uploaded documents"
+      },
+      "response": []
+    },
+    {
+      "name": "Query Specific Document",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"question\": \"What are the key points discussed?\",\n  \"document_id\": 1,\n  \"top_k\": 5\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/query",
+          "host": ["{{base_url}}"],
+          "path": ["api", "query"]
+        },
+        "description": "Ask a question about a specific document"
+      },
+      "response": []
+    },
+    {
+      "name": "Get System Statistics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/stats",
+          "host": ["{{base_url}}"],
+          "path": ["api", "stats"]
+        },
+        "description": "Get statistics about the system including document counts, chunks, and limits"
+      },
+      "response": []
+    },
+    {
+      "name": "Root Endpoint",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": ["{{base_url}}"],
+          "path": [""]
+        },
+        "description": "Get API information and available endpoints"
+      },
+      "response": []
+    }
+  ]
+}
