@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  rag-app-dev:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+      - DATABASE_URL=sqlite:///rag_system.db
+      - CHROMA_PERSIST_DIRECTORY=/app/chroma_db
+      - UPLOAD_FOLDER=/app/uploads
+      - LOG_LEVEL=DEBUG
+      # Add your API keys here or use .env file
+      # - GEMINI_API_KEY=your_gemini_api_key
+      # - OPENAI_API_KEY=your_openai_api_key
+    volumes:
+      - .:/app
+      - ./uploads:/app/uploads
+      - ./chroma_db:/app/chroma_db
+      - ./logs:/app/logs
+    restart: unless-stopped
+    command: ["python", "app.py"]
