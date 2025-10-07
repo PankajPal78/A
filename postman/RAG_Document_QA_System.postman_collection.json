@@ -1,0 +1,338 @@
+{
+  "info": {
+    "name": "RAG Document Q&A System",
+    "description": "Complete API collection for the RAG Document Q&A System with all endpoints for document management and query processing.",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Checks",
+      "item": [
+        {
+          "name": "Basic Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health/",
+              "host": ["{{base_url}}"],
+              "path": ["health", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "System Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health/status",
+              "host": ["{{base_url}}"],
+              "path": ["health", "status"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Document Management",
+      "item": [
+        {
+          "name": "Upload Document",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [],
+                  "description": "Select a PDF, DOCX, or TXT file to upload"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/documents/upload",
+              "host": ["{{base_url}}"],
+              "path": ["documents", "upload"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Documents",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/documents/?page=1&per_page=10",
+              "host": ["{{base_url}}"],
+              "path": ["documents", ""],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "10"
+                },
+                {
+                  "key": "status",
+                  "value": "processed",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Document by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/documents/1",
+              "host": ["{{base_url}}"],
+              "path": ["documents", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Document Chunks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/documents/1/chunks",
+              "host": ["{{base_url}}"],
+              "path": ["documents", "1", "chunks"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Document",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/documents/1",
+              "host": ["{{base_url}}"],
+              "path": ["documents", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Document Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/documents/stats",
+              "host": ["{{base_url}}"],
+              "path": ["documents", "stats"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Query Processing",
+      "item": [
+        {
+          "name": "Process Query",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"What is machine learning?\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/query/",
+              "host": ["{{base_url}}"],
+              "path": ["query", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Process Query with Parameters",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"What is machine learning?\",\n  \"document_ids\": [1, 2],\n  \"top_k\": 3,\n  \"similarity_threshold\": 0.8\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/query/",
+              "host": ["{{base_url}}"],
+              "path": ["query", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search Documents",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"machine learning\",\n  \"top_k\": 5,\n  \"similarity_threshold\": 0.5\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/query/search",
+              "host": ["{{base_url}}"],
+              "path": ["query", "search"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Query History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/query/history?limit=50",
+              "host": ["{{base_url}}"],
+              "path": ["query", "history"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Query Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/query/stats",
+              "host": ["{{base_url}}"],
+              "path": ["query", "stats"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Configuration",
+      "item": [
+        {
+          "name": "Get Pipeline Configuration",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/query/config",
+              "host": ["{{base_url}}"],
+              "path": ["query", "config"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Pipeline Configuration",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"top_k\": 3,\n  \"similarity_threshold\": 0.8\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/query/config",
+              "host": ["{{base_url}}"],
+              "path": ["query", "config"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Set base URL if not already set",
+          "if (!pm.environment.get('base_url')) {",
+          "    pm.environment.set('base_url', 'http://localhost:5000/api');",
+          "}"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Basic response time test",
+          "pm.test('Response time is less than 5000ms', function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+          "});",
+          "",
+          "// Status code test for successful requests",
+          "if (pm.response.code < 400) {",
+          "    pm.test('Status code is successful', function () {",
+          "        pm.response.to.have.status(200);",
+          "    });",
+          "}",
+          "",
+          "// JSON response test",
+          "pm.test('Response is JSON', function () {",
+          "    pm.response.to.be.json;",
+          "});"
+        ]
+      }
+    }
+  ]
+}
