@@ -1,0 +1,220 @@
+{
+  "info": {
+    "name": "RAG Document Q&A API",
+    "description": "Collection for testing the RAG Document Q&A System API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "Basic Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": ["{{base_url}}"],
+              "path": [""]
+            }
+          }
+        },
+        {
+          "name": "Detailed Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/health",
+              "host": ["{{base_url}}"],
+              "path": ["api", "health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Document Management",
+      "item": [
+        {
+          "name": "Upload Document",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/documents/upload",
+              "host": ["{{base_url}}"],
+              "path": ["api", "documents", "upload"]
+            }
+          }
+        },
+        {
+          "name": "List Documents",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/documents/?page=1&per_page=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "documents", ""],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Document Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/documents/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "documents", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Document Chunks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/documents/1/chunks?page=1&per_page=20",
+              "host": ["{{base_url}}"],
+              "path": ["api", "documents", "1", "chunks"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Document",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/documents/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "documents", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Query & Search",
+      "item": [
+        {
+          "name": "Ask Question (RAG)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"question\": \"What is the main topic of the document?\",\n  \"max_results\": 5,\n  \"max_tokens\": 1000\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/query/ask",
+              "host": ["{{base_url}}"],
+              "path": ["api", "query", "ask"]
+            }
+          }
+        },
+        {
+          "name": "Ask Question with Document Filter",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"question\": \"What are the key findings?\",\n  \"document_ids\": [1, 2],\n  \"max_results\": 5\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/query/ask",
+              "host": ["{{base_url}}"],
+              "path": ["api", "query", "ask"]
+            }
+          }
+        },
+        {
+          "name": "Search Documents",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"machine learning\",\n  \"max_results\": 10\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/query/search",
+              "host": ["{{base_url}}"],
+              "path": ["api", "query", "search"]
+            }
+          }
+        },
+        {
+          "name": "Test LLM Connection",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/query/test-llm",
+              "host": ["{{base_url}}"],
+              "path": ["api", "query", "test-llm"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
