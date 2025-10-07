@@ -1,0 +1,119 @@
+{
+  "info": {
+    "name": "RAG Document Q&A System API",
+    "description": "Collection for testing the RAG Document Q&A System API endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Upload Document",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/documents",
+          "host": ["{{base_url}}"],
+          "path": ["api", "documents"]
+        }
+      }
+    },
+    {
+      "name": "List Documents",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/documents",
+          "host": ["{{base_url}}"],
+          "path": ["api", "documents"]
+        }
+      }
+    },
+    {
+      "name": "Get Document Details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/documents/{{document_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "documents", "{{document_id}}"]
+        }
+      }
+    },
+    {
+      "name": "Delete Document",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/documents/{{document_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "documents", "{{document_id}}"]
+        }
+      }
+    },
+    {
+      "name": "Query Documents",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"What is machine learning?\",\n  \"top_k\": 5\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/query",
+          "host": ["{{base_url}}"],
+          "path": ["api", "query"]
+        }
+      }
+    },
+    {
+      "name": "Get System Statistics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/stats",
+          "host": ["{{base_url}}"],
+          "path": ["api", "stats"]
+        }
+      }
+    }
+  ]
+}
