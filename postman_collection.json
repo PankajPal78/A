@@ -1,0 +1,354 @@
+{
+  "info": {
+    "name": "RAG Document Q&A System API",
+    "description": "Complete API collection for the RAG Document Q&A System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Checks",
+      "item": [
+        {
+          "name": "Basic Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/health/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "health", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Detailed Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/health/detailed",
+              "host": ["{{base_url}}"],
+              "path": ["api", "health", "detailed"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Document Management",
+      "item": [
+        {
+          "name": "Upload Document",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/documents/upload",
+              "host": ["{{base_url}}"],
+              "path": ["api", "documents", "upload"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Documents",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/documents/?page=1&per_page=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "documents", ""],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Document by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/documents/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "documents", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Document Chunks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/documents/1/chunks",
+              "host": ["{{base_url}}"],
+              "path": ["api", "documents", "1", "chunks"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Document",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/documents/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "documents", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Document Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/documents/stats",
+              "host": ["{{base_url}}"],
+              "path": ["api", "documents", "stats"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Query Operations",
+      "item": [
+        {
+          "name": "Ask Question - Simple",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"What is machine learning?\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/query/ask",
+              "host": ["{{base_url}}"],
+              "path": ["api", "query", "ask"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ask Question - With Parameters",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"Explain neural networks\",\n  \"document_ids\": [1, 2],\n  \"max_chunks\": 3,\n  \"max_tokens\": 500\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/query/ask",
+              "host": ["{{base_url}}"],
+              "path": ["api", "query", "ask"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search Documents",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"machine learning algorithms\",\n  \"max_chunks\": 5\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/query/search",
+              "host": ["{{base_url}}"],
+              "path": ["api", "query", "search"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Available Documents",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/query/available-documents",
+              "host": ["{{base_url}}"],
+              "path": ["api", "query", "available-documents"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get System Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/query/stats",
+              "host": ["{{base_url}}"],
+              "path": ["api", "query", "stats"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Test LLM Connection",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/query/test-llm",
+              "host": ["{{base_url}}"],
+              "path": ["api", "query", "test-llm"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sample Queries",
+      "item": [
+        {
+          "name": "What is the main topic?",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"What is the main topic discussed in these documents?\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/query/ask",
+              "host": ["{{base_url}}"],
+              "path": ["api", "query", "ask"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Summarize key points",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"Can you summarize the key points from the uploaded documents?\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/query/ask",
+              "host": ["{{base_url}}"],
+              "path": ["api", "query", "ask"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find specific information",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"What are the advantages and disadvantages mentioned?\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/query/ask",
+              "host": ["{{base_url}}"],
+              "path": ["api", "query", "ask"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Compare concepts",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"How do the concepts discussed in these documents relate to each other?\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/query/ask",
+              "host": ["{{base_url}}"],
+              "path": ["api", "query", "ask"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
