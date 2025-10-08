@@ -1,0 +1,6 @@
+- [x] Update imports in app.py to new LangChain packages
+- [x] Add import os in app.py
+- [x] Modify ChatOpenAI instantiation to include openai_api_key
+- [x] Update requirements.txt with new packages: langchain-community, langchain-openai, langchain-huggingface
+- [x] Run pip install -r requirements.txt
+- [x] Test the app
